@@ -187,20 +187,19 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
   .tl-card::before{transform:scaleX(1)}
 }
 
-/* FINAL CTA · fundo líquido animado (roxo escuro Clint) */
-.final-cta{background:var(--ink);color:var(--white);padding:140px 0;position:relative;overflow:hidden}
-.final-cta-liquid{position:absolute;inset:-15%;z-index:0;pointer-events:none}
-.final-cta-liquid i{position:absolute;display:block;border-radius:50%;filter:blur(75px);will-change:transform}
-.final-cta-liquid i:nth-child(1){width:52%;height:52%;max-width:560px;max-height:560px;top:-8%;left:2%;background:radial-gradient(circle at 35% 35%, var(--purple-2), var(--purple-deep) 70%);opacity:.5;animation:liquidFloatA 24s ease-in-out infinite}
-.final-cta-liquid i:nth-child(2){width:46%;height:46%;max-width:480px;max-height:480px;bottom:-14%;right:4%;background:radial-gradient(circle at 60% 40%, var(--purple), var(--purple-deep) 75%);opacity:.5;animation:liquidFloatB 28s ease-in-out infinite}
-.final-cta-liquid i:nth-child(3){width:34%;height:34%;max-width:380px;max-height:380px;top:18%;right:22%;background:radial-gradient(circle at 40% 60%, var(--pink), var(--purple-deep) 72%);opacity:.24;animation:liquidFloatC 32s ease-in-out infinite}
-.final-cta-liquid i:nth-child(4){width:30%;height:30%;max-width:340px;max-height:340px;bottom:2%;left:18%;background:radial-gradient(circle at 50% 50%, var(--purple-2), transparent 72%);opacity:.4;animation:liquidFloatA 19s ease-in-out infinite reverse}
-@keyframes liquidFloatA{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(6%,-8%) scale(1.15)}66%{transform:translate(-5%,6%) scale(.9)}}
-@keyframes liquidFloatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-8%,-9%) scale(1.2)}}
-@keyframes liquidFloatC{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}50%{transform:translate(5%,8%) scale(1.1) rotate(18deg)}}
-@media(prefers-reduced-motion:reduce){.final-cta-liquid i{animation:none}}
-.final-cta-scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 60% 65% at 50% 45%, rgba(14,11,46,.62) 0%, rgba(14,11,46,.3) 55%, rgba(14,11,46,.08) 80%);pointer-events:none}
+/* FINAL CTA · esfera liquid metal animada (roxo Clint) */
+.final-cta{background:var(--ink);color:var(--white);padding:150px 0;position:relative;overflow:hidden}
+.final-cta-liquid{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(860px,92vw);aspect-ratio:1/1;z-index:0;pointer-events:none}
+.liquid-glow{position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle, rgba(142,124,255,.45), transparent 68%);filter:blur(55px)}
+.final-cta-liquid svg{position:relative;width:100%;height:100%;display:block;filter:drop-shadow(0 40px 80px rgba(10,6,40,.55))}
+.liquid-sheen{transform-origin:400px 400px;animation:liquidSheenSpin 30s linear infinite}
+.liquid-sheen2{transform-origin:400px 400px;animation:liquidSheenSpin 42s linear infinite reverse}
+@keyframes liquidSheenSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.liquid-sheen,.liquid-sheen2{animation:none}}
+.final-cta-scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 66% 74% at 50% 47%, rgba(11,8,36,.86) 0%, rgba(11,8,36,.62) 42%, rgba(11,8,36,.28) 66%, rgba(11,8,36,.04) 86%);pointer-events:none}
 .final-cta-inner{max-width:980px;margin:0 auto;padding:0 40px;text-align:center;position:relative;z-index:2}
+.final-cta .label,.final-cta h2,.final-cta-sub{text-shadow:0 4px 24px rgba(4,2,18,.65)}
+.final-cta-sub{color:rgba(255,255,255,.88)}
 @media(max-width:980px){.final-cta{padding:90px 0}.final-cta-inner{padding:0 22px}}
 .final-cta .label{color:var(--pink);justify-content:center}
 .final-cta h2{color:var(--white);font-size:clamp(40px,5vw,68px);margin:0 auto;letter-spacing:-0.035em}
@@ -437,7 +436,45 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
 
 <!-- PRÓXIMO PASSO -->
 <section class="final-cta" id="cta-final">
-  <div class="final-cta-liquid" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="final-cta-liquid" aria-hidden="true">
+    <div class="liquid-glow"></div>
+    <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="liquidBase" cx="20%" cy="16%" r="82%">
+          <stop offset="0%" stop-color="#F1EDFF"/>
+          <stop offset="14%" stop-color="#C7BBFF"/>
+          <stop offset="32%" stop-color="#8E7CFF"/>
+          <stop offset="55%" stop-color="#4E3AFF"/>
+          <stop offset="78%" stop-color="#2A1A99"/>
+          <stop offset="93%" stop-color="#160F44"/>
+          <stop offset="100%" stop-color="#0E0B2E"/>
+        </radialGradient>
+        <linearGradient id="liquidSheenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+          <stop offset="46%" stop-color="#ffffff" stop-opacity=".9"/>
+          <stop offset="54%" stop-color="#ffffff" stop-opacity=".9"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="liquidSheenGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF2D6F" stop-opacity="0"/>
+          <stop offset="48%" stop-color="#FF2D6F" stop-opacity=".5"/>
+          <stop offset="52%" stop-color="#FF2D6F" stop-opacity=".5"/>
+          <stop offset="100%" stop-color="#FF2D6F" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="liquidTurb" x="-30%" y="-30%" width="160%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.010 0.014" numOctaves="2" seed="7" result="noise">
+            <animate attributeName="baseFrequency" dur="28s" values="0.010 0.014;0.017 0.022;0.010 0.014" repeatCount="indefinite"/>
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="26"/>
+        </filter>
+      </defs>
+      <g filter="url(#liquidTurb)">
+        <circle cx="400" cy="400" r="368" fill="url(#liquidBase)"/>
+        <path class="liquid-sheen" d="M90,300 C260,120 540,100 700,270 C580,410 400,560 240,610 C130,500 70,420 90,300 Z" fill="url(#liquidSheenGrad)"/>
+        <path class="liquid-sheen2" d="M660,560 C500,650 300,640 170,520 C260,420 440,320 620,290 C700,380 700,480 660,560 Z" fill="url(#liquidSheenGrad2)"/>
+      </g>
+    </svg>
+  </div>
   <div class="final-cta-scrim" aria-hidden="true"></div>
   <div class="final-cta-inner">
     <div class="label">Próximo passo</div>
