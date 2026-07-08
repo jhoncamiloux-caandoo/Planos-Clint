@@ -187,9 +187,19 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
   .tl-card::before{transform:scaleX(1)}
 }
 
-/* FINAL CTA */
+/* FINAL CTA · fundo líquido animado (roxo escuro Clint) */
 .final-cta{background:var(--ink);color:var(--white);padding:140px 0;position:relative;overflow:hidden}
-.final-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 600px at 50% 0%, rgba(78,58,255,.30), transparent 60%),radial-gradient(700px 500px at 100% 100%, rgba(255,45,111,.18), transparent 60%);pointer-events:none}
+.final-cta-liquid{position:absolute;inset:-15%;z-index:0;pointer-events:none}
+.final-cta-liquid i{position:absolute;display:block;border-radius:50%;filter:blur(75px);will-change:transform}
+.final-cta-liquid i:nth-child(1){width:52%;height:52%;max-width:560px;max-height:560px;top:-8%;left:2%;background:radial-gradient(circle at 35% 35%, var(--purple-2), var(--purple-deep) 70%);opacity:.5;animation:liquidFloatA 24s ease-in-out infinite}
+.final-cta-liquid i:nth-child(2){width:46%;height:46%;max-width:480px;max-height:480px;bottom:-14%;right:4%;background:radial-gradient(circle at 60% 40%, var(--purple), var(--purple-deep) 75%);opacity:.5;animation:liquidFloatB 28s ease-in-out infinite}
+.final-cta-liquid i:nth-child(3){width:34%;height:34%;max-width:380px;max-height:380px;top:18%;right:22%;background:radial-gradient(circle at 40% 60%, var(--pink), var(--purple-deep) 72%);opacity:.24;animation:liquidFloatC 32s ease-in-out infinite}
+.final-cta-liquid i:nth-child(4){width:30%;height:30%;max-width:340px;max-height:340px;bottom:2%;left:18%;background:radial-gradient(circle at 50% 50%, var(--purple-2), transparent 72%);opacity:.4;animation:liquidFloatA 19s ease-in-out infinite reverse}
+@keyframes liquidFloatA{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(6%,-8%) scale(1.15)}66%{transform:translate(-5%,6%) scale(.9)}}
+@keyframes liquidFloatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-8%,-9%) scale(1.2)}}
+@keyframes liquidFloatC{0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}50%{transform:translate(5%,8%) scale(1.1) rotate(18deg)}}
+@media(prefers-reduced-motion:reduce){.final-cta-liquid i{animation:none}}
+.final-cta-scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 60% 65% at 50% 45%, rgba(14,11,46,.62) 0%, rgba(14,11,46,.3) 55%, rgba(14,11,46,.08) 80%);pointer-events:none}
 .final-cta-inner{max-width:980px;margin:0 auto;padding:0 40px;text-align:center;position:relative;z-index:2}
 @media(max-width:980px){.final-cta{padding:90px 0}.final-cta-inner{padding:0 22px}}
 .final-cta .label{color:var(--pink);justify-content:center}
@@ -427,6 +437,8 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
 
 <!-- PRÓXIMO PASSO -->
 <section class="final-cta" id="cta-final">
+  <div class="final-cta-liquid" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="final-cta-scrim" aria-hidden="true"></div>
   <div class="final-cta-inner">
     <div class="label">Próximo passo</div>
     <h2>Fale com a Clint e escolha seu <em>plano</em></h2>
