@@ -24,7 +24,7 @@ html{scroll-behavior:smooth}
 body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5;overflow-x:hidden}
 
 .header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:all .3s ease}
-.header-inner{max-width:1280px;margin:0 auto;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.header-inner{max-width:1280px;margin:0 auto;padding:18px 40px;display:flex;align-items:center;justify-content:center}
 .brand{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em;color:var(--ink);display:flex;align-items:center;gap:9px;text-decoration:none}
 .btn{font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;letter-spacing:-0.005em;padding:11px 22px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s ease;cursor:pointer;border:1px solid transparent}
 .btn-arrow{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:transform .25s ease}
@@ -128,15 +128,56 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
   .cmp-val.setup::before{color:var(--pink)}
 }
 
-/* TIMELINE · 30 dias */
-.tr-grid{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-@media(max-width:980px){.tr-grid{grid-template-columns:1fr;margin-top:44px}}
-.tr-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:36px 32px}
-@media(max-width:980px){.tr-card{padding:28px 24px}}
+/* TIMELINE · 30 dias · premium animada */
+.tl{margin-top:64px}
+@media(max-width:980px){.tl{margin-top:44px}}
+
+/* trilho superior com nós numerados */
+.tl-rail{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:30px}
+@media(max-width:980px){.tl-rail{display:none}}
+.tl-node{position:relative;display:flex;align-items:center;justify-content:center;height:60px}
+.tl-node::before{content:"";position:absolute;top:50%;left:-12px;right:-12px;height:2px;background:var(--line-2);transform:translateY(-50%);border-radius:2px}
+.tl-node:first-child::before{left:50%}
+.tl-node:last-child::before{right:50%}
+.tl-node::after{content:"";position:absolute;top:50%;left:-12px;right:-12px;height:2px;background:linear-gradient(90deg,var(--purple),var(--purple-2));transform:translateY(-50%) scaleX(0);transform-origin:left;border-radius:2px;transition:transform .7s cubic-bezier(.6,.02,.2,1);transition-delay:calc(var(--n) * .18s)}
+.tl-node:first-child::after{left:50%}
+.tl-node:last-child::after{right:50%}
+.is-visible .tl-node::after{transform:translateY(-50%) scaleX(1)}
+.tl-node span{position:relative;z-index:2;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;color:var(--white);background:linear-gradient(135deg,var(--purple) 0%,var(--purple-deep) 100%);box-shadow:0 8px 22px rgba(78,58,255,.32);opacity:0;transform:scale(.4);transition:opacity .5s ease,transform .5s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--n) * .18s + .1s)}
+.is-visible .tl-node span{opacity:1;transform:scale(1)}
+
+/* cards */
+.tl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:980px){.tl-cards{grid-template-columns:1fr}}
+.tl-card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:34px 30px;position:relative;overflow:hidden;box-shadow:0 2px 4px rgba(14,11,46,.03);opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s cubic-bezier(.4,0,.2,1),box-shadow .3s ease;transition-delay:calc(var(--n) * .14s + .25s)}
+.is-visible .tl-card{opacity:1;transform:none}
+.tl-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--purple),var(--pink));transform:scaleX(0);transform-origin:left;transition:transform .6s ease;transition-delay:calc(var(--n) * .14s + .4s)}
+.is-visible .tl-card::before{transform:scaleX(1)}
+.tl-card:hover{box-shadow:0 20px 44px rgba(14,11,46,.10);transform:translateY(-4px)}
+@media(max-width:980px){.tl-card{padding:28px 24px}}
+
+/* número no mobile */
+.tl-card-num{display:none}
+@media(max-width:980px){.tl-card-num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--white);background:linear-gradient(135deg,var(--purple),var(--purple-deep));box-shadow:0 6px 16px rgba(78,58,255,.3);margin-bottom:18px}}
+
 .tr-card-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:500;margin-bottom:14px}
-.tr-card-h{font-family:'Poppins',sans-serif;font-weight:600;font-size:22px;letter-spacing:-0.02em;line-height:1.2;color:var(--ink);margin-bottom:18px}
+.tr-card-h{font-family:'Poppins',sans-serif;font-weight:600;font-size:22px;letter-spacing:-0.02em;line-height:1.2;color:var(--ink);margin-bottom:16px}
 .tr-card-h em{color:var(--purple);font-style:italic;font-weight:500}
 .tr-card-p{font-size:14.5px;line-height:1.65;color:var(--ink-2)}
+
+/* dots de progresso */
+.tl-dots{display:flex;align-items:center;gap:30px;margin-top:26px;position:relative;width:max-content}
+.tl-dots::before{content:"";position:absolute;top:50%;left:5px;right:5px;height:2px;background:var(--line);transform:translateY(-50%)}
+.tl-dots i{position:relative;z-index:1;width:10px;height:10px;border-radius:50%;background:var(--line-2);transition:all .4s ease}
+.tl-dots i.on{background:var(--purple);box-shadow:0 0 0 5px rgba(78,58,255,.14);transform:scale(1.15)}
+
+@media(prefers-reduced-motion:reduce){
+  .tl-node::after,.tl-node span,.tl-card,.tl-card::before{transition:none !important;opacity:1 !important}
+  .tl-node::after{transform:translateY(-50%) scaleX(1)}
+  .tl-node span{transform:scale(1)}
+  .tl-card,.tl-card::before{transform:none}
+  .tl-card::before{transform:scaleX(1)}
+}
 
 /* FINAL CTA */
 .final-cta{background:var(--ink);color:var(--white);padding:140px 0;position:relative;overflow:hidden}
@@ -343,21 +384,34 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
     <h2>30 dias. Depois disso, a operação está <em>vendendo</em></h2>
     <p class="sub">Sem meses de implementação ou consultoria interminável. Do contrato até a primeira venda <b>em 1 mês</b>.</p>
 
-    <div class="tr-grid">
-      <div class="tr-card">
-        <div class="tr-card-tag">Dias 1 a 10</div>
-        <div class="tr-card-h">Descoberta e <em>implementação</em></div>
-        <p class="tr-card-p">A gente entende como você vende, implementa CRM e a IA da Clint cria funil, automações, agentes e indicadores de acordo com seu negócio.</p>
+    <div class="tl">
+      <div class="tl-rail" aria-hidden="true">
+        <div class="tl-node" style="--n:0"><span>01</span></div>
+        <div class="tl-node" style="--n:1"><span>02</span></div>
+        <div class="tl-node" style="--n:2"><span>03</span></div>
       </div>
-      <div class="tr-card">
-        <div class="tr-card-tag">Dias 11 a 20</div>
-        <div class="tr-card-h">Integrações e <em>organização</em></div>
-        <p class="tr-card-p">Conectamos tudo o que você já tem. Suas ferramentas, seus leads, clientes e histórico de conversas entram na Clint organizados.</p>
-      </div>
-      <div class="tr-card">
-        <div class="tr-card-tag">Dias 21 a 30</div>
-        <div class="tr-card-h">Validação e <em>treinamento</em></div>
-        <p class="tr-card-p">Testamos até estar certo. Calibramos os agentes com a linguagem do seu negócio, revisamos cada peça e treinamos seu time.</p>
+      <div class="tl-cards">
+        <article class="tl-card" style="--n:0">
+          <span class="tl-card-num">01</span>
+          <div class="tr-card-tag">Dias 1 a 10</div>
+          <h3 class="tr-card-h">Descoberta e <em>implementação</em></h3>
+          <p class="tr-card-p">A gente entende como você vende, implementa CRM e a IA da Clint cria funil, automações, agentes e indicadores de acordo com seu negócio.</p>
+          <div class="tl-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+        </article>
+        <article class="tl-card" style="--n:1">
+          <span class="tl-card-num">02</span>
+          <div class="tr-card-tag">Dias 11 a 20</div>
+          <h3 class="tr-card-h">Integrações e <em>organização</em></h3>
+          <p class="tr-card-p">Conectamos tudo o que você já tem. Suas ferramentas, seus leads, clientes e histórico de conversas entram na Clint organizados.</p>
+          <div class="tl-dots" aria-hidden="true"><i></i><i class="on"></i><i></i></div>
+        </article>
+        <article class="tl-card" style="--n:2">
+          <span class="tl-card-num">03</span>
+          <div class="tr-card-tag">Dias 21 a 30</div>
+          <h3 class="tr-card-h">Validação e <em>treinamento</em></h3>
+          <p class="tr-card-p">Testamos até estar certo. Calibramos os agentes com a linguagem do seu negócio, revisamos cada peça e treinamos seu time.</p>
+          <div class="tl-dots" aria-hidden="true"><i></i><i></i><i class="on"></i></div>
+        </article>
       </div>
     </div>
   </div>
@@ -450,5 +504,18 @@ document.querySelectorAll('.cadence-btn').forEach(btn => {
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
+<script>
+(function(){
+  var tl=document.querySelector('.tl');
+  if(!tl) return;
+  if(!('IntersectionObserver' in window)){tl.classList.add('is-visible');return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}
+    });
+  },{threshold:.25});
+  io.observe(tl);
+})();
+</script>
 </body>
 </html>
