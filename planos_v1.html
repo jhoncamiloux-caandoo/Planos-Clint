@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planos · Clint</title>
+<meta name="description" content="Como funcionam os planos da Clint. Um plano pra você executar do seu jeito e um plano pra você escalar, com a equipe da Clint do seu lado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<style>
+:root{
+  --purple:#4E3AFF;--purple-2:#8E7CFF;--purple-soft:#F5F3FF;--purple-deep:#2A1A99;
+  --pink:#FF2D6F;--pink-deep:#D11E5B;
+  --ink:#0E0B2E;--ink-2:#3A3554;--muted:#7A7596;
+  --line:#E7E3FB;--line-2:#D6D0F5;
+  --white:#FFFFFF;--paper:#FAFAFE;
+  --green:#16A34A;--amber:#F59E0B;--red:#EF4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5;overflow-x:hidden}
+
+.header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:all .3s ease}
+.header-inner{max-width:1280px;margin:0 auto;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.brand{font-family:'Poppins',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em;color:var(--ink);display:flex;align-items:center;gap:9px;text-decoration:none}
+.btn{font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;letter-spacing:-0.005em;padding:11px 22px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s ease;cursor:pointer;border:1px solid transparent}
+.btn-arrow{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:transform .25s ease}
+.btn:hover .btn-arrow{transform:translateX(3px)}
+@media(max-width:980px){.header-inner{padding:14px 22px}}
+
+.label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);font-weight:500;margin-bottom:26px;display:inline-flex;align-items:center;gap:10px}
+.label::before{content:"";width:24px;height:1px;background:currentColor}
+h1,h2,h3{font-family:'Poppins',sans-serif;letter-spacing:-0.035em;color:var(--ink)}
+h1{font-weight:700;font-size:clamp(40px,5.5vw,80px);line-height:1}
+h1 em{color:var(--purple);font-style:italic;font-weight:600}
+h2{font-weight:600;font-size:clamp(34px,4.5vw,58px);line-height:1.05;letter-spacing:-0.03em;max-width:1000px}
+h2 em{color:var(--purple);font-style:italic;font-weight:500}
+.sub{margin-top:24px;font-size:clamp(17px,1.35vw,20px);line-height:1.55;color:var(--ink-2);max-width:720px;font-weight:400}
+.sub b{color:var(--ink);font-weight:600}
+h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
+
+/* HERO */
+.hero{padding:170px 0 100px;background:var(--ink);color:var(--white);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 600px at 80% 30%, rgba(78,58,255,.28), transparent 60%),radial-gradient(700px 500px at 10% 80%, rgba(255,45,111,.14), transparent 60%);pointer-events:none}
+.hero-inner{max-width:1280px;margin:0 auto;padding:0 40px;position:relative;z-index:2}
+.hero .label{color:var(--pink);margin-bottom:30px}
+.hero h1{color:var(--white);font-size:clamp(44px,5.2vw,72px);line-height:1;letter-spacing:-0.04em;font-weight:700;max-width:1000px}
+.hero h1 em{color:var(--purple-2);font-style:italic;font-weight:600}
+.hero-sub{margin-top:32px;font-size:clamp(17px,1.35vw,21px);line-height:1.55;color:rgba(255,255,255,.78);max-width:720px;font-weight:400}
+.hero-sub b{color:var(--white);font-weight:600}
+.hero-ctas{margin-top:44px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hero-cta-main{background:var(--white);color:var(--ink);padding:16px 32px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .25s ease}
+.hero-cta-main:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.15)}
+.hero-badges{margin-top:34px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:2}
+
+.section{position:relative;padding:120px 0}
+.section-inner{max-width:1280px;margin:0 auto;padding:0 40px}
+@media(max-width:980px){.section{padding:80px 0}.section-inner{padding:0 22px}.hero{padding:130px 0 70px}.hero-inner{padding:0 22px}}
+.section.paper{background:var(--paper)}
+
+/* PLANOS · V1 · cards lado a lado */
+.plans-grid{margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+@media(max-width:980px){.plans-grid{grid-template-columns:1fr;margin-top:44px}}
+.plan-card{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:46px 42px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+@media(max-width:980px){.plan-card{padding:34px 26px}}
+.plan-card.featured{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.plan-card.featured::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 350px at 80% 0%, rgba(78,58,255,.25), transparent 60%),radial-gradient(400px 300px at 0% 100%, rgba(255,45,111,.16), transparent 60%);pointer-events:none}
+.plan-card>*{position:relative;z-index:2}
+.plan-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);font-weight:500;margin-bottom:20px}
+.plan-card.featured .plan-tag{color:var(--pink)}
+.plan-name{font-weight:600;font-size:30px;letter-spacing:-0.03em;line-height:1.1;color:var(--ink);margin-bottom:16px}
+.plan-card.featured .plan-name{color:var(--white)}
+.plan-price{font-weight:700;font-size:40px;letter-spacing:-0.03em;line-height:1;color:var(--ink);margin-bottom:18px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.plan-card.featured .plan-price{color:var(--white)}
+.plan-price small{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.plan-card.featured .plan-price small{color:rgba(255,255,255,.6)}
+.plan-desc{font-size:15px;line-height:1.6;color:var(--ink-2);margin-bottom:28px}
+.plan-card.featured .plan-desc{color:rgba(255,255,255,.78)}
+.plan-list{list-style:none;margin:0 0 26px;padding:0;flex:1}
+.plan-list li{padding:13px 0 13px 28px;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink-2);position:relative}
+.plan-list li:last-child{border-bottom:none}
+.plan-list li::before{content:"✓";position:absolute;left:0;top:13px;color:var(--purple);font-weight:600}
+.plan-card.featured .plan-list li{border-bottom-color:rgba(255,255,255,.08);color:rgba(255,255,255,.82)}
+.plan-card.featured .plan-list li::before{color:var(--pink)}
+.plan-squad{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.9}
+.plan-foot{border-top:1px dashed var(--line);padding-top:18px;font-size:12.5px;line-height:1.55;color:var(--muted);margin-bottom:28px}
+.plan-card.featured .plan-foot{border-top-color:rgba(255,255,255,.12);color:rgba(255,255,255,.55)}
+.plan-cta{justify-content:center;width:100%;padding:15px 24px;font-size:15px}
+
+/* SETUP COMPLETO · Configure a sua operação */
+.setup-card{margin-top:60px;background:var(--white);border:1px solid var(--line);border-radius:24px;padding:46px 44px;display:grid;grid-template-columns:1.4fr auto;gap:40px;align-items:center}
+@media(max-width:980px){.setup-card{grid-template-columns:1fr;padding:32px 26px;gap:26px;margin-top:44px}}
+.setup-card-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:500;margin-bottom:16px}
+.setup-card-h{font-family:'Poppins',sans-serif;font-weight:600;font-size:24px;letter-spacing:-0.025em;line-height:1.25;color:var(--ink)}
+.setup-card-h em{color:var(--purple);font-style:italic;font-weight:500}
+.cadence-toggle{display:flex;gap:10px;flex-shrink:0}
+.cadence-btn{font-family:'Poppins',sans-serif;background:var(--white);border:1.5px solid var(--line-2);border-radius:14px;padding:12px 22px;cursor:pointer;transition:all .2s ease;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:130px}
+.cadence-btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+.cadence-btn.active{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.cadence-btn-name{font-weight:600;font-size:16px;letter-spacing:-0.02em;color:var(--ink);line-height:1.1}
+.cadence-btn.active .cadence-btn-name{color:var(--white)}
+.cadence-btn-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);font-weight:500;text-transform:uppercase}
+.cadence-btn.active .cadence-btn-sub{color:var(--pink)}
+@media(max-width:980px){.cadence-toggle{width:100%}.cadence-btn{flex:1;min-width:0}}
+
+/* TABELA COMPARATIVA · A escolha certa */
+.cmp{margin-top:60px;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--white)}
+.cmp-head{display:grid;grid-template-columns:1.1fr 1fr 1fr;background:var(--ink);color:var(--white)}
+.cmp-head div{padding:20px 28px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.cmp-head .c-plat{color:var(--purple-2)}
+.cmp-head .c-setup{color:var(--pink)}
+.cmp-row{display:grid;grid-template-columns:1.1fr 1fr 1fr;border-top:1px solid var(--line)}
+.cmp-crit{padding:22px 28px;font-weight:600;font-size:14px;letter-spacing:-0.005em;color:var(--ink);background:var(--paper)}
+.cmp-val{padding:22px 28px;font-size:14px;line-height:1.55;color:var(--ink-2);border-left:1px solid var(--line)}
+.cmp-val::before{content:attr(data-plan);display:none}
+@media(max-width:980px){
+  .cmp{border:none;background:transparent;overflow:visible;border-radius:0;margin-top:44px}
+  .cmp-head{display:none}
+  .cmp-row{grid-template-columns:1fr;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:14px;background:var(--white)}
+  .cmp-row:first-of-type{margin-top:0}
+  .cmp-crit{padding:16px 22px;border-bottom:1px solid var(--line)}
+  .cmp-val{border-left:none;padding:14px 22px}
+  .cmp-val+.cmp-val{border-top:1px dashed var(--line)}
+  .cmp-val::before{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);font-weight:500;margin-bottom:5px}
+  .cmp-val.setup::before{color:var(--pink)}
+}
+
+/* TIMELINE · 30 dias */
+.tr-grid{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:980px){.tr-grid{grid-template-columns:1fr;margin-top:44px}}
+.tr-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:36px 32px}
+@media(max-width:980px){.tr-card{padding:28px 24px}}
+.tr-card-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);font-weight:500;margin-bottom:14px}
+.tr-card-h{font-family:'Poppins',sans-serif;font-weight:600;font-size:22px;letter-spacing:-0.02em;line-height:1.2;color:var(--ink);margin-bottom:18px}
+.tr-card-h em{color:var(--purple);font-style:italic;font-weight:500}
+.tr-card-p{font-size:14.5px;line-height:1.65;color:var(--ink-2)}
+
+/* FINAL CTA */
+.final-cta{background:var(--ink);color:var(--white);padding:140px 0;position:relative;overflow:hidden}
+.final-cta::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 600px at 50% 0%, rgba(78,58,255,.30), transparent 60%),radial-gradient(700px 500px at 100% 100%, rgba(255,45,111,.18), transparent 60%);pointer-events:none}
+.final-cta-inner{max-width:980px;margin:0 auto;padding:0 40px;text-align:center;position:relative;z-index:2}
+@media(max-width:980px){.final-cta{padding:90px 0}.final-cta-inner{padding:0 22px}}
+.final-cta .label{color:var(--pink);justify-content:center}
+.final-cta h2{color:var(--white);font-size:clamp(40px,5vw,68px);margin:0 auto;letter-spacing:-0.035em}
+.final-cta h2 em{color:var(--purple-2);font-style:italic;font-weight:500}
+.final-cta-sub{margin-top:26px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.75);max-width:640px;margin-left:auto;margin-right:auto}
+.final-cta-ctas{margin-top:44px;display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+.final-cta-primary{background:var(--white);color:var(--ink);padding:18px 36px;font-size:15px;font-weight:600;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .25s ease}
+.final-cta-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,255,255,.15)}
+
+/* FAQ */
+.faq{margin-top:56px;max-width:860px}
+@media(max-width:980px){.faq{margin-top:40px}}
+.faq details{border:1px solid var(--line);border-radius:16px;background:var(--white);margin-bottom:12px;overflow:hidden}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 26px;font-weight:600;font-size:16px;letter-spacing:-0.01em;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--purple);transition:transform .25s ease;flex:0 0 auto}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq-a{padding:0 26px 24px;font-size:15px;line-height:1.65;color:var(--ink-2)}
+@media(max-width:980px){.faq summary{padding:18px 20px;font-size:15px}.faq-a{padding:0 20px 20px}}
+
+/* FOOTER */
+.footer{background:var(--ink);color:rgba(255,255,255,.55);padding:80px 0 40px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 40px}
+@media(max-width:980px){.footer-inner{padding:0 22px}}
+.footer-grid{padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand{font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:var(--white);letter-spacing:-0.02em;display:flex;align-items:center;gap:9px;margin-bottom:18px}
+.footer-tag{font-size:14px;line-height:1.55;color:rgba(255,255,255,.55);margin-bottom:24px;max-width:340px}
+.footer-meta{display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.4);text-transform:uppercase}
+.footer-bottom{padding-top:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.4)}
+.footer-bottom a{color:rgba(255,255,255,.55);text-decoration:none;margin:0 14px}
+.footer-bottom a:hover{color:var(--white)}
+
+.clint-logo-svg{height:44px;width:auto;fill:#1B1844;display:block}
+.clint-logo-svg-footer{height:36px;width:auto;fill:#ffffff;display:block}
+
+/* WHATSAPP FLUTUANTE */
+.wa-float{position:fixed;right:26px;bottom:26px;z-index:150;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(37,211,102,.45);animation:waPulse 2.6s infinite;transition:transform .25s ease, box-shadow .25s ease}
+.wa-float:hover{transform:scale(1.08);box-shadow:0 14px 34px rgba(37,211,102,.55);animation-play-state:paused}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@media(max-width:980px){.wa-float{right:16px;bottom:16px;width:54px;height:54px}.wa-float svg{width:26px;height:26px}}
+
+/* WHATSAPP */
+.is-whatsapp{display:inline-flex !important;align-items:center;justify-content:center;background:#25D366 !important;border-color:#25D366 !important;color:#fff !important}
+.is-whatsapp:hover{background:#1FB855 !important;border-color:#1FB855 !important;color:#fff !important}
+.is-whatsapp .btn-arrow{color:#fff !important}
+.is-whatsapp::before{content:"";display:inline-block;width:18px;height:18px;margin-right:9px;flex:0 0 auto;vertical-align:middle;background-repeat:no-repeat;background-position:center;background-size:contain;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z'/%3E%3C/svg%3E")}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="brand"><svg class="clint-logo-svg" viewBox="0 0 1080 510" xmlns="http://www.w3.org/2000/svg" aria-label="Clint"><g><g><path d="M679.06,129.05v23.83c0,3.37,2.73,6.1,6.1,6.1h23.82c3.37,0,6.1-2.73,6.1-6.1v-23.83c0-3.37-2.73-6.1-6.1-6.1h-23.82C681.79,122.94,679.06,125.68,679.06,129.05z"/><path d="M648.46,129.05v231.93c0,3.37-2.73,6.1-6.1,6.1h-23.82c-3.37,0-6.1-2.73-6.1-6.1V129.05c0-3.37,2.73-6.1,6.1-6.1h23.82C645.72,122.94,648.46,125.68,648.46,129.05z"/><path d="M679.06,183.46v177.52c0,3.37,2.73,6.1,6.1,6.1h23.82c3.37,0,6.1-2.73,6.1-6.1V183.46c0-3.37-2.73-6.1-6.1-6.1h-23.82C681.79,177.36,679.06,180.09,679.06,183.46z"/><path d="M511.82,367.09c-51.81,0-93.7-41.9-94.57-93.51c-0.89-52.91,43.75-96.21,96.66-96.21h67.97c3.37,0,6.1,2.73,6.1,6.1v24.39c0,3.37-2.73,6.1-6.1,6.1l-69.23,0c-30.09,0-56.22,22.37-59.11,52.32c-3.34,34.58,24.35,64.21,57.71,64.21h70.63c3.37,0,6.1,2.73,6.1,6.1v24.39c0,3.37-2.73,6.1-6.1,6.1H511.82z"/><path d="M746.25,271.94c0-51.81,41.9-93.7,93.51-94.57c52.91-0.89,96.21,43.75,96.21,96.66v86.94c0,3.37-2.73,6.1-6.1,6.1h-24.39c-3.37,0-6.1-2.73-6.1-6.1l0-88.2c0-30.09-22.37-56.22-52.32-59.11c-34.58-3.34-64.21,24.35-64.21,57.71v89.6c0,3.37-2.73,6.1-6.1,6.1h-24.39c-3.37,0-6.1-2.73-6.1-6.1V271.94z"/><path d="M963.33,122.94h23.83c3.37,0,6.1,2.73,6.1,6.1v48.33h30.49c3.37,0,6.1,2.73,6.1,6.1v17.07c0,3.37-2.73,6.1-6.1,6.1h-30.49v65.83c0,25.66,18.01,52.77,41.36,56.45c3.05,0.48,5.38,2.97,5.38,6.06v25.73c0,3.54-3.02,6.38-6.55,6.11c-46.39-3.56-76.22-44.76-76.22-92.66V129.05C957.23,125.68,959.96,122.94,963.33,122.94z"/></g><path d="M192.59,102.41C108.32,102.41,40,170.73,40,255s68.32,152.59,152.59,152.59S345.18,339.27,345.18,255S276.86,102.41,192.59,102.41z M142.61,190.67c20.28-35.13,63.46-48.8,99.81-33.04c4.5,1.95,6.23,7.46,3.78,11.71l-20.37,35.28c-4.03-0.55-8.14-0.86-12.32-0.86c-33.92,0-63.44,18.72-78.87,46.38C129.56,230.73,131.79,209.41,142.61,190.67z M161.46,336.95c-40.57,0-74-30.56-78.52-69.92c-0.56-4.87,3.35-9.12,8.25-9.12h40.76c13.45,32.98,45.81,56.23,83.62,56.23c0.46,0,0.92-0.02,1.38-0.02C202.69,328.22,183.1,336.95,161.46,336.95z M258.2,351.18c-3.94,2.92-9.57,1.67-12.03-2.58l-20.38-35.31c2.49-3.22,4.81-6.62,6.91-10.24c16.95-29.37,15.51-64.28-0.71-91.47c19.34,5.31,36.68,17.9,47.51,36.64C299.77,283.35,290.02,327.58,258.2,351.18z"/></g></svg></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="label">Planos</div>
+    <h1>Como funcionam os <em>planos</em> da Clint</h1>
+    <p class="hero-sub">Um plano pra você <b>executar do seu jeito</b> e um plano pra você <b>escalar</b>, com a equipe da Clint do seu lado.</p>
+    <div class="hero-ctas">
+      <a href="#planos" class="hero-cta-main">Ver planos <span class="btn-arrow">↓</span></a>
+    </div>
+    <div class="hero-badges">2.000+ operações ativas · Setup em 30 dias · Parceiro oficial Meta</div>
+  </div>
+</section>
+
+<!-- OS PLANOS -->
+<section class="section paper" id="planos">
+  <div class="section-inner">
+    <div class="label">Os planos</div>
+    <h2>Um resolve a execução. O outro traz a <em>inteligência</em> da equipe Clint.</h2>
+
+    <div class="plans-grid">
+      <!-- PLATAFORMA -->
+      <div class="plan-card">
+        <div class="plan-tag">CRM completo</div>
+        <div class="plan-name">Plataforma</div>
+        <div class="plan-price">R$ 149 <small>/usuário/mês</small></div>
+        <p class="plan-desc">CRM, WhatsApp oficial e automação de funil. Você roda a operação, sozinho.</p>
+        <ul class="plan-list">
+          <li>CRM completo, visual e configurável</li>
+          <li>Copiloto IA com franquia inclusa*</li>
+          <li>Agentes IA · atende, qualifica, agenda e recupera</li>
+          <li>Disparos de campanhas em massa</li>
+          <li>API Oficial do WhatsApp</li>
+          <li>BI customizado e indicadores</li>
+          <li>Suporte híbrido · IA + humano</li>
+        </ul>
+        <div class="plan-foot">*Créditos por usuário/mês inclusos. Acima da franquia, paga consumo.</div>
+        <a href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20planos%20e%20valores%20da%20Clint.&utm_source=novo-site&utm_medium=botao&utm_campaign=site" target="_blank" rel="noopener" class="btn is-whatsapp plan-cta">Falar com a IA no WhatsApp <span class="btn-arrow">→</span></a>
+      </div>
+
+      <!-- SETUP COMPLETO -->
+      <div class="plan-card featured">
+        <div class="plan-tag">Plataforma + IA + Squad humana</div>
+        <div class="plan-name">Setup completo</div>
+        <div class="plan-price">Sob medida</div>
+        <p class="plan-desc">Aqui a Clint entra com você. IA atendendo, seu especialista fechando e nossa equipe acompanhando toda semana.</p>
+        <ul class="plan-list">
+          <li>Tudo da Plataforma</li>
+          <li>Agentes de IA sendo avaliados e calibrados</li>
+          <li>Squad de especialistas
+            <span class="plan-squad">Gestor externo · Especialista em IA · Analista de dados</span>
+          </li>
+          <li>Acompanhamento semanal/quinzenal*</li>
+        </ul>
+        <div class="plan-foot">*Veja qual é o melhor pra você na seção abaixo.</div>
+        <a href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20planos%20e%20valores%20da%20Clint.&utm_source=novo-site&utm_medium=botao&utm_campaign=site" target="_blank" rel="noopener" class="btn is-whatsapp plan-cta">Falar com a IA no WhatsApp <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SETUP COMPLETO · CONFIGURE -->
+<section class="section">
+  <div class="section-inner">
+    <div class="label">Setup completo</div>
+    <h2>Configure a sua <em>operação</em></h2>
+    <p class="sub">Além da plataforma, uma equipe que analisa seus agentes de IA e operação de vendas <b>toda semana ou a cada 15 dias</b>. Você escolhe!</p>
+
+    <div class="setup-card">
+      <div>
+        <div class="setup-card-label">Acompanhamento</div>
+        <div class="setup-card-h">Toda semana ou a cada 15 dias. <em>Você escolhe!</em></div>
+      </div>
+      <div class="cadence-toggle" role="group" aria-label="Cadência de acompanhamento">
+        <button class="cadence-btn active" data-cadence="1" type="button">
+          <span class="cadence-btn-name">Semanal</span>
+          <span class="cadence-btn-sub">Toda semana</span>
+        </button>
+        <button class="cadence-btn" data-cadence="0" type="button">
+          <span class="cadence-btn-name">Quinzenal</span>
+          <span class="cadence-btn-sub">A cada 15 dias</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A ESCOLHA CERTA -->
+<section class="section paper">
+  <div class="section-inner">
+    <div class="label">A escolha certa</div>
+    <h2>Qual é o melhor <em>plano</em> para mim</h2>
+    <p class="sub">Depende do tamanho da sua operação hoje.</p>
+
+    <div class="cmp">
+      <div class="cmp-head">
+        <div></div>
+        <div class="c-plat">Plataforma</div>
+        <div class="c-setup">Setup completo</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-crit">Pra quem é</div>
+        <div class="cmp-val plat" data-plan="Plataforma">Time organizando a operação</div>
+        <div class="cmp-val setup" data-plan="Setup completo">Time que já vende e quer escalar</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-crit">Time comercial</div>
+        <div class="cmp-val plat" data-plan="Plataforma">Pequeno, com 2 ou 3 pessoas</div>
+        <div class="cmp-val setup" data-plan="Setup completo">Time maior, com + 3 pessoas</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-crit">Faturamento</div>
+        <div class="cmp-val plat" data-plan="Plataforma">Ainda validando o funil</div>
+        <div class="cmp-val setup" data-plan="Setup completo">Acima de R$ 1M por ano</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-crit">Quem atende o lead hoje</div>
+        <div class="cmp-val plat" data-plan="Plataforma">Você mesmo, com processo simples</div>
+        <div class="cmp-val setup" data-plan="Setup completo">Depende demais de uma pessoa-chave</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-crit">O que você busca</div>
+        <div class="cmp-val plat" data-plan="Plataforma">CRM, WhatsApp e automação organizados</div>
+        <div class="cmp-val setup" data-plan="Setup completo">IA atendendo e especialista fechando por você</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-crit">Squad da Clint</div>
+        <div class="cmp-val plat" data-plan="Plataforma">Não incluso</div>
+        <div class="cmp-val setup" data-plan="Setup completo">Gestor externo, especialista em IA, analista de dados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EM QUANTO TEMPO FUNCIONA -->
+<section class="section">
+  <div class="section-inner">
+    <div class="label">Em quanto tempo funciona</div>
+    <h2>30 dias. Depois disso, a operação está <em>vendendo</em></h2>
+    <p class="sub">Sem meses de implementação ou consultoria interminável. Do contrato até a primeira venda <b>em 1 mês</b>.</p>
+
+    <div class="tr-grid">
+      <div class="tr-card">
+        <div class="tr-card-tag">Dias 1 a 10</div>
+        <div class="tr-card-h">Descoberta e <em>implementação</em></div>
+        <p class="tr-card-p">A gente entende como você vende, implementa CRM e a IA da Clint cria funil, automações, agentes e indicadores de acordo com seu negócio.</p>
+      </div>
+      <div class="tr-card">
+        <div class="tr-card-tag">Dias 11 a 20</div>
+        <div class="tr-card-h">Integrações e <em>organização</em></div>
+        <p class="tr-card-p">Conectamos tudo o que você já tem. Suas ferramentas, seus leads, clientes e histórico de conversas entram na Clint organizados.</p>
+      </div>
+      <div class="tr-card">
+        <div class="tr-card-tag">Dias 21 a 30</div>
+        <div class="tr-card-h">Validação e <em>treinamento</em></div>
+        <p class="tr-card-p">Testamos até estar certo. Calibramos os agentes com a linguagem do seu negócio, revisamos cada peça e treinamos seu time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRÓXIMO PASSO -->
+<section class="final-cta" id="cta-final">
+  <div class="final-cta-inner">
+    <div class="label">Próximo passo</div>
+    <h2>Fale com a Clint e escolha seu <em>plano</em></h2>
+    <p class="final-cta-sub">Manda uma mensagem no WhatsApp. A Clara, nossa agente de IA, assume a conversa na hora. Ela vai entender sua operação e, se fizer sentido pra você, agenda uma conversa com o especialista. Sem enrolação!</p>
+    <div class="final-cta-ctas">
+      <a href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20planos%20e%20valores%20da%20Clint.&utm_source=novo-site&utm_medium=botao&utm_campaign=site" target="_blank" rel="noopener" class="final-cta-primary is-whatsapp">Falar com a IA no WhatsApp <span class="btn-arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section paper">
+  <div class="section-inner">
+    <div class="label">FAQ</div>
+    <h2>Ainda com <em>dúvidas?</em></h2>
+
+    <div class="faq">
+      <details>
+        <summary>E se eu não tiver certeza de qual plano é o meu?</summary>
+        <div class="faq-a">Fala com a gente. Numa conversa rápida, a Clint te diz qual plano cabe no tamanho real da sua operação hoje.</div>
+      </details>
+      <details>
+        <summary>Posso começar na Plataforma e migrar pro Setup completo depois?</summary>
+        <div class="faq-a">Sim. Muita gente começa validando CRM, WhatsApp e automação, e migra quando o volume de leads já não cabe num time pequeno.</div>
+      </details>
+      <details>
+        <summary>Posso fazer downgrade do Setup completo pra Plataforma?</summary>
+        <div class="faq-a">Sim. Se o Setup completo parecer maior do que sua operação precisa, dá pra descer pro plano Plataforma.</div>
+      </details>
+      <details>
+        <summary>Preciso de um time comercial grande pra contratar o Setup completo?</summary>
+        <div class="faq-a">Não precisa ser grande, precisa já vender o suficiente pra sentir o gargalo. A partir de 3 pessoas no comercial, ou mais de R$ 1M de faturamento por ano, o Setup já compensa.</div>
+      </details>
+      <details>
+        <summary>O Setup completo substitui meu time de vendas?</summary>
+        <div class="faq-a">Não. A IA atende, qualifica e agenda. Quem fecha continua sendo humano, seu especialista. O time da Clint te acompanha com um olhar externo da sua operação.</div>
+      </details>
+      <details>
+        <summary>Tem fidelidade, ou dá pra desistir a qualquer momento?</summary>
+        <div class="faq-a">Não tem fidelidade, ou seja, você cancela quando quiser.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><svg class="clint-logo-svg-footer" viewBox="0 0 1080 510" xmlns="http://www.w3.org/2000/svg" aria-label="Clint"><g><g><path d="M679.06,129.05v23.83c0,3.37,2.73,6.1,6.1,6.1h23.82c3.37,0,6.1-2.73,6.1-6.1v-23.83c0-3.37-2.73-6.1-6.1-6.1h-23.82C681.79,122.94,679.06,125.68,679.06,129.05z"/><path d="M648.46,129.05v231.93c0,3.37-2.73,6.1-6.1,6.1h-23.82c-3.37,0-6.1-2.73-6.1-6.1V129.05c0-3.37,2.73-6.1,6.1-6.1h23.82C645.72,122.94,648.46,125.68,648.46,129.05z"/><path d="M679.06,183.46v177.52c0,3.37,2.73,6.1,6.1,6.1h23.82c3.37,0,6.1-2.73,6.1-6.1V183.46c0-3.37-2.73-6.1-6.1-6.1h-23.82C681.79,177.36,679.06,180.09,679.06,183.46z"/><path d="M511.82,367.09c-51.81,0-93.7-41.9-94.57-93.51c-0.89-52.91,43.75-96.21,96.66-96.21h67.97c3.37,0,6.1,2.73,6.1,6.1v24.39c0,3.37-2.73,6.1-6.1,6.1l-69.23,0c-30.09,0-56.22,22.37-59.11,52.32c-3.34,34.58,24.35,64.21,57.71,64.21h70.63c3.37,0,6.1,2.73,6.1,6.1v24.39c0,3.37-2.73,6.1-6.1,6.1H511.82z"/><path d="M746.25,271.94c0-51.81,41.9-93.7,93.51-94.57c52.91-0.89,96.21,43.75,96.21,96.66v86.94c0,3.37-2.73,6.1-6.1,6.1h-24.39c-3.37,0-6.1-2.73-6.1-6.1l0-88.2c0-30.09-22.37-56.22-52.32-59.11c-34.58-3.34-64.21,24.35-64.21,57.71v89.6c0,3.37-2.73,6.1-6.1,6.1h-24.39c-3.37,0-6.1-2.73-6.1-6.1V271.94z"/><path d="M963.33,122.94h23.83c3.37,0,6.1,2.73,6.1,6.1v48.33h30.49c3.37,0,6.1,2.73,6.1,6.1v17.07c0,3.37-2.73,6.1-6.1,6.1h-30.49v65.83c0,25.66,18.01,52.77,41.36,56.45c3.05,0.48,5.38,2.97,5.38,6.06v25.73c0,3.54-3.02,6.38-6.55,6.11c-46.39-3.56-76.22-44.76-76.22-92.66V129.05C957.23,125.68,959.96,122.94,963.33,122.94z"/></g><path d="M192.59,102.41C108.32,102.41,40,170.73,40,255s68.32,152.59,152.59,152.59S345.18,339.27,345.18,255S276.86,102.41,192.59,102.41z M142.61,190.67c20.28-35.13,63.46-48.8,99.81-33.04c4.5,1.95,6.23,7.46,3.78,11.71l-20.37,35.28c-4.03-0.55-8.14-0.86-12.32-0.86c-33.92,0-63.44,18.72-78.87,46.38C129.56,230.73,131.79,209.41,142.61,190.67z M161.46,336.95c-40.57,0-74-30.56-78.52-69.92c-0.56-4.87,3.35-9.12,8.25-9.12h40.76c13.45,32.98,45.81,56.23,83.62,56.23c0.46,0,0.92-0.02,1.38-0.02C202.69,328.22,183.1,336.95,161.46,336.95z M258.2,351.18c-3.94,2.92-9.57,1.67-12.03-2.58l-20.38-35.31c2.49-3.22,4.81-6.62,6.91-10.24c16.95-29.37,15.51-64.28-0.71-91.47c19.34,5.31,36.68,17.9,47.51,36.64C299.77,283.35,290.02,327.58,258.2,351.18z"/></g></svg></div>
+        <p class="footer-tag">A operação comercial em que a IA opera e o especialista garante. Plataforma + agentes IA + squad dedicada ao seu negócio.</p>
+        <div class="footer-meta">
+          <span>Florianópolis, SC · Brasil</span>
+          <span>Meta Business Partner · BSP</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Clint Hub Serviços Digitais Ltda</div>
+      <div>
+        <a href="politica_de_privacidade.html">Privacidade</a>
+        <a href="termos_de_uso.html">Termos</a>
+        <a href="politica_de_cookies.html">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const header = document.querySelector('.header');
+  header.style.boxShadow = window.scrollY > 50 ? '0 4px 24px rgba(14,11,46,.06)' : 'none';
+});
+
+document.querySelectorAll('.cadence-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cadence-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+</script>
+<a href="https://api.whatsapp.com/send?phone=5548996789080&text=Oi%21%20Gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20planos%20e%20valores%20da%20Clint.&utm_source=novo-site&utm_medium=botao&utm_campaign=site" target="_blank" rel="noopener" class="wa-float" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+</body>
+</html>
