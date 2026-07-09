@@ -53,21 +53,56 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
 /* orbe */
 .hero-orb{position:relative;width:min(500px,40vw);aspect-ratio:1/1;justify-self:center}
 .hero-orb::before{content:"";position:absolute;inset:-14%;border-radius:50%;background:radial-gradient(circle, rgba(120,80,255,.35), rgba(255,45,111,.08) 55%, transparent 72%);filter:blur(40px)}
-.orb-ball{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;animation:orbSpin 48s linear infinite;will-change:transform}
-.orb-logo{position:absolute;top:50%;left:50%;width:36%;height:auto;opacity:.85;transform:translate(-50%,-50%);animation:orbFloat 5.5s ease-in-out infinite;filter:drop-shadow(0 20px 44px rgba(8,3,34,.5));will-change:transform}
+.orb-ball{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;z-index:2;animation:orbSpin 48s linear infinite;will-change:transform}
+.orb-logo{position:absolute;top:50%;left:50%;width:36%;height:auto;opacity:.85;z-index:1;transform:translate(-50%,-50%);animation:orbFloat 5.5s ease-in-out infinite;filter:drop-shadow(0 20px 44px rgba(8,3,34,.5));will-change:transform}
 @keyframes orbSpin{to{transform:rotate(360deg)}}
 @keyframes orbFloat{0%,100%{transform:translate(-50%,calc(-50% - 11px))}50%{transform:translate(-50%,calc(-50% + 11px))}}
 @media(prefers-reduced-motion:reduce){.orb-ball,.orb-logo{animation:none}}
+.hero-sub b{color:var(--white);font-weight:600}
+.hero-ctas{margin-top:44px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.hero-cta-main{background:var(--white);color:var(--ink);padding:16px 32px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .25s ease}
+.hero-cta-main:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.15)}
+
+/* stats · linha compacta SEMPRE visível (fonte única de leitura, mobile-safe) */
+.hero-stats{margin-top:38px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+@media(min-width:981px){.hero-stats{display:none}}
+.stat-chip{display:flex;align-items:center;gap:10px;background:rgba(158,180,212,.13);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:7px 16px 7px 7px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.stat-chip.is-plain{background:none;border:none;padding:0}
+.stat-avatars{display:flex;align-items:center;flex-shrink:0}
+.stat-avatars img{width:26px;height:26px;border-radius:50%;display:block;margin-left:-8px}
+.stat-avatars img:first-child{margin-left:0}
+.stat-chip-text{font-family:'Poppins',sans-serif;font-size:13.5px;line-height:1.25;color:var(--white);white-space:nowrap}
+.stat-chip-text b{font-weight:700}
+.stat-chip-text span{display:block;font-weight:300;opacity:.68;font-size:12px}
+.stat-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--purple-2);display:flex;align-items:center;justify-content:center}
+.stat-icon svg{width:15px;height:15px}
+.stat-meta{height:26px;width:auto;display:block}
+@media(max-width:560px){.hero-stats{gap:12px 16px}.stat-chip{padding:6px 13px 6px 6px}.stat-chip-text{font-size:12.5px}}
+
+/* cluster flutuante decorativo · só desktop, ao redor da orbe (referência Figma) */
+.orb-badges{position:absolute;inset:0;z-index:3;pointer-events:none;display:none}
+@media(min-width:981px){.orb-badges{display:block}}
+.obadge{position:absolute;display:flex;align-items:center;filter:drop-shadow(0 14px 30px rgba(6,3,26,.45))}
+.obadge-stats{top:6%;right:-2%;gap:12px;background:rgba(158,180,212,.15);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:20px;padding:12px 20px 12px 12px;animation:obFloat1 7s ease-in-out infinite}
+.obadge-stats .stat-avatars img{width:32px;height:32px;margin-left:-9px}
+.obadge-stats .stat-chip-text{font-size:15px}
+.obadge-stats .stat-chip-text span{font-size:13px}
+.obadge-setup{bottom:20%;left:-8%;gap:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:999px;padding:8px 22px 8px 8px;animation:obFloat2 8s ease-in-out infinite}
+.obadge-setup .stat-icon{width:42px;height:42px}
+.obadge-setup .stat-icon svg{width:21px;height:21px}
+.obadge-setup .stat-chip-text{font-size:15px;font-weight:600;opacity:.92}
+.obadge-meta{bottom:2%;right:-2%;animation:obFloat3 9s ease-in-out infinite}
+.obadge-meta img{height:38px;width:auto}
+@keyframes obFloat1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes obFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+@keyframes obFloat3{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.obadge-stats,.obadge-setup,.obadge-meta{animation:none}}
+
 @media(max-width:980px){
   .hero-inner{grid-template-columns:1fr;gap:12px}
   .hero h1,.hero-sub{max-width:100%}
   .hero-orb{width:min(310px,74vw);margin-top:34px}
 }
-.hero-sub b{color:var(--white);font-weight:600}
-.hero-ctas{margin-top:44px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.hero-cta-main{background:var(--white);color:var(--ink);padding:16px 32px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .25s ease}
-.hero-cta-main:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.15)}
-.hero-badges{margin-top:34px;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:2}
 
 .section{position:relative;padding:120px 0}
 .section-inner{max-width:1280px;margin:0 auto;padding:0 40px}
@@ -273,11 +308,50 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
       <div class="hero-ctas">
         <a href="#planos" class="hero-cta-main">Ver planos <span class="btn-arrow">↓</span></a>
       </div>
-      <div class="hero-badges">2.000+ operações ativas · Setup em 30 dias · Parceiro oficial Meta</div>
+      <div class="hero-stats">
+        <div class="stat-chip">
+          <div class="stat-avatars">
+            <img src="avatar-1.webp" alt="" width="26" height="26">
+            <img src="avatar-2.webp" alt="" width="26" height="26">
+            <img src="avatar-3.webp" alt="" width="26" height="26">
+            <img src="avatar-4.webp" alt="" width="26" height="26">
+          </div>
+          <div class="stat-chip-text"><b>2.000+</b><span>operações ativas</span></div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-icon">
+            <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.9375 13.8125C9.74099 13.8125 10.5264 14.0508 11.1945 14.4972C11.8626 14.9435 12.3833 15.578 12.6908 16.3203C12.9982 17.0627 13.0787 17.8795 12.9219 18.6676C12.7652 19.4556 12.3783 20.1795 11.8101 20.7476C11.242 21.3158 10.5181 21.7027 9.73005 21.8594C8.94201 22.0162 8.12517 21.9357 7.38285 21.6283C6.64052 21.3208 6.00605 20.8001 5.55965 20.132C5.11326 19.4639 4.875 18.6785 4.875 17.875V17.1915" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.0625 13.8125C16.259 13.8125 15.4736 14.0508 14.8055 14.4972C14.1374 14.9435 13.6167 15.578 13.3092 16.3203C13.0018 17.0627 12.9213 17.8795 13.0781 18.6676C13.2348 19.4556 13.6217 20.1795 14.1899 20.7476C14.758 21.3158 15.4819 21.7027 16.2699 21.8594C17.058 22.0162 17.8748 21.9357 18.6172 21.6283C19.3595 21.3208 19.994 20.8001 20.4403 20.132C20.8867 19.4639 21.125 18.6785 21.125 17.875V17.1915" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.3125 17.4688H6.5C5.34924 17.4698 4.2352 17.0637 3.35505 16.3223C2.4749 15.581 1.88538 14.5522 1.69082 13.418C1.49625 12.2838 1.70918 11.1173 2.29194 10.125C2.87469 9.13273 3.78968 8.37857 4.875 7.99602V7.3125C4.875 6.23506 5.30301 5.20175 6.06488 4.43988C6.82675 3.67801 7.86006 3.25 8.9375 3.25C10.0149 3.25 11.0483 3.67801 11.8101 4.43988C12.572 5.20175 13 6.23506 13 7.3125V17.875" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.6875 17.4688H19.5C20.6508 17.4698 21.7648 17.0637 22.6449 16.3223C23.5251 15.581 24.1146 14.5522 24.3092 13.418C24.5037 12.2838 24.2908 11.1173 23.7081 10.125C23.1253 9.13273 22.2103 8.37857 21.125 7.99602V7.3125C21.125 6.23506 20.697 5.20175 19.9351 4.43988C19.1733 3.67801 18.1399 3.25 17.0625 3.25C15.9851 3.25 14.9517 3.67801 14.1899 4.43988C13.428 5.20175 13 6.23506 13 7.3125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.3125 11.375H19.9062C19.152 11.375 18.4287 11.0754 17.8954 10.5421C17.3621 10.0088 17.0625 9.28546 17.0625 8.53125V8.125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.6875 11.375H6.09375C6.84796 11.375 7.57128 11.0754 8.10458 10.5421C8.63789 10.0088 8.9375 9.28546 8.9375 8.53125V8.125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stat-chip-text"><b>Setup em 30 dias</b></div>
+        </div>
+        <div class="stat-chip is-plain">
+          <img class="stat-meta" src="meta-business-partner.svg" alt="Meta Business Partner">
+        </div>
+      </div>
     </div>
     <div class="hero-orb" aria-hidden="true">
-      <img class="orb-ball" src="bola-energia.webp" alt="" loading="eager" decoding="async">
       <img class="orb-logo" src="logo-clint-3d.webp" alt="" loading="eager" decoding="async">
+      <img class="orb-ball" src="bola-energia.webp" alt="" loading="eager" decoding="async">
+      <div class="orb-badges">
+        <div class="obadge obadge-stats">
+          <div class="stat-avatars">
+            <img src="avatar-1.webp" alt="" width="32" height="32">
+            <img src="avatar-2.webp" alt="" width="32" height="32">
+            <img src="avatar-3.webp" alt="" width="32" height="32">
+            <img src="avatar-4.webp" alt="" width="32" height="32">
+          </div>
+          <div class="stat-chip-text"><b>2.000+</b><span>operações ativas</span></div>
+        </div>
+        <div class="obadge obadge-setup">
+          <div class="stat-icon">
+            <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.9375 13.8125C9.74099 13.8125 10.5264 14.0508 11.1945 14.4972C11.8626 14.9435 12.3833 15.578 12.6908 16.3203C12.9982 17.0627 13.0787 17.8795 12.9219 18.6676C12.7652 19.4556 12.3783 20.1795 11.8101 20.7476C11.242 21.3158 10.5181 21.7027 9.73005 21.8594C8.94201 22.0162 8.12517 21.9357 7.38285 21.6283C6.64052 21.3208 6.00605 20.8001 5.55965 20.132C5.11326 19.4639 4.875 18.6785 4.875 17.875V17.1915" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.0625 13.8125C16.259 13.8125 15.4736 14.0508 14.8055 14.4972C14.1374 14.9435 13.6167 15.578 13.3092 16.3203C13.0018 17.0627 12.9213 17.8795 13.0781 18.6676C13.2348 19.4556 13.6217 20.1795 14.1899 20.7476C14.758 21.3158 15.4819 21.7027 16.2699 21.8594C17.058 22.0162 17.8748 21.9357 18.6172 21.6283C19.3595 21.3208 19.994 20.8001 20.4403 20.132C20.8867 19.4639 21.125 18.6785 21.125 17.875V17.1915" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.3125 17.4688H6.5C5.34924 17.4698 4.2352 17.0637 3.35505 16.3223C2.4749 15.581 1.88538 14.5522 1.69082 13.418C1.49625 12.2838 1.70918 11.1173 2.29194 10.125C2.87469 9.13273 3.78968 8.37857 4.875 7.99602V7.3125C4.875 6.23506 5.30301 5.20175 6.06488 4.43988C6.82675 3.67801 7.86006 3.25 8.9375 3.25C10.0149 3.25 11.0483 3.67801 11.8101 4.43988C12.572 5.20175 13 6.23506 13 7.3125V17.875" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.6875 17.4688H19.5C20.6508 17.4698 21.7648 17.0637 22.6449 16.3223C23.5251 15.581 24.1146 14.5522 24.3092 13.418C24.5037 12.2838 24.2908 11.1173 23.7081 10.125C23.1253 9.13273 22.2103 8.37857 21.125 7.99602V7.3125C21.125 6.23506 20.697 5.20175 19.9351 4.43988C19.1733 3.67801 18.1399 3.25 17.0625 3.25C15.9851 3.25 14.9517 3.67801 14.1899 4.43988C13.428 5.20175 13 6.23506 13 7.3125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.3125 11.375H19.9062C19.152 11.375 18.4287 11.0754 17.8954 10.5421C17.3621 10.0088 17.0625 9.28546 17.0625 8.53125V8.125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.6875 11.375H6.09375C6.84796 11.375 7.57128 11.0754 8.10458 10.5421C8.63789 10.0088 8.9375 9.28546 8.9375 8.53125V8.125" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="stat-chip-text">Setup em 30 dias</div>
+        </div>
+        <div class="obadge obadge-meta">
+          <img src="meta-business-partner.svg" alt="Meta Business Partner">
+        </div>
+      </div>
     </div>
   </div>
 </section>
