@@ -53,7 +53,7 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
 /* orbe */
 .hero-orb{position:relative;width:min(500px,40vw);aspect-ratio:1/1;justify-self:center}
 .hero-orb::before{content:"";position:absolute;inset:-14%;border-radius:50%;background:radial-gradient(circle, rgba(120,80,255,.35), rgba(255,45,111,.08) 55%, transparent 72%);filter:blur(40px)}
-.orb-ball{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;animation:orbSpin 48s linear infinite;will-change:transform}
+.orb-ball{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;animation:orbSpin 48s linear infinite;will-change:transform}
 .orb-logo{position:absolute;top:50%;left:50%;width:36%;height:auto;opacity:.85;transform:translate(-50%,-50%);animation:orbFloat 5.5s ease-in-out infinite;filter:drop-shadow(0 20px 44px rgba(8,3,34,.5));will-change:transform}
 @keyframes orbSpin{to{transform:rotate(360deg)}}
 @keyframes orbFloat{0%,100%{transform:translate(-50%,calc(-50% - 11px))}50%{transform:translate(-50%,calc(-50% + 11px))}}
