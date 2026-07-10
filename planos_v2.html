@@ -177,6 +177,18 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
   color:var(--purple);
   min-width:140px;text-align:right;
 }
+.calc-num{
+  font:inherit;color:inherit;letter-spacing:inherit;
+  width:2.2em;text-align:right;
+  background:transparent;border:none;
+  border-bottom:2px dashed var(--line-2);
+  padding:0 2px;margin:0;outline:none;
+  -moz-appearance:textfield;cursor:text;
+  transition:border-color .2s ease;
+}
+.calc-num::-webkit-outer-spin-button,.calc-num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.calc-num:hover{border-bottom-color:var(--purple)}
+.calc-num:focus{border-bottom-color:var(--pink)}
 .calc-slider{
   width:280px;
   -webkit-appearance:none;appearance:none;
@@ -627,7 +639,7 @@ h1,h2,h3{text-wrap:balance;-webkit-text-wrap:balance}
         <div class="calc-slider-wrap">
           <div class="calc-slider-label">Número de vendedores</div>
           <input type="range" id="users" class="calc-slider" min="5" max="100" step="1" value="20">
-          <div class="calc-slider-value"><span id="usersOut">20</span> vendedores</div>
+          <div class="calc-slider-value"><input type="number" id="usersOut" class="calc-num" min="5" max="100" value="20" inputmode="numeric" aria-label="Número de vendedores"> vendedores</div>
         </div>
 
         <div class="calc-slider-wrap">
@@ -889,6 +901,7 @@ window.addEventListener('scroll', () => {
 
 const fmt = v => 'R$ ' + v.toLocaleString('pt-BR');
 let currentCadence = 0;
+const MINU = 5, MAXU = 100;
 function calc() {
   const users = parseInt(document.getElementById('users').value);
   const cadence = currentCadence;
@@ -905,7 +918,6 @@ function calc() {
   const totalClint = platformCost + cycleCost + consumo;
   const diff = totalInterno - totalClint;
   const diffPct = Math.round((diff / totalInterno) * 100);
-  document.getElementById('usersOut').textContent = users;
   document.getElementById('cadenceOut2').textContent = cadenceName;
   document.getElementById('sdrCount').textContent = sdrCount;
   document.getElementById('sdrCost').textContent = fmt(sdrTotal);
@@ -920,8 +932,25 @@ function calc() {
   document.getElementById('diffAbs').textContent = 'Economia de ~' + fmt(diff) + '/mês';
 }
 const usersEl = document.getElementById('users');
-if (usersEl) {
-  usersEl.addEventListener('input', calc);
+const usersOut = document.getElementById('usersOut');
+if (usersEl && usersOut) {
+  const clampU = v => Math.min(MAXU, Math.max(MINU, v));
+  // slider -> número
+  usersEl.addEventListener('input', () => { usersOut.value = usersEl.value; calc(); });
+  // digitar no número -> slider (clamp leve, sem brigar com quem digita)
+  usersOut.addEventListener('input', () => {
+    const v = parseInt(usersOut.value);
+    if (!isNaN(v)) { usersEl.value = clampU(v); calc(); }
+  });
+  // finaliza (corrige limites) ao sair do campo / Enter
+  const finalizeU = () => {
+    let v = parseInt(usersOut.value);
+    if (isNaN(v)) v = parseInt(usersEl.value);
+    v = clampU(v);
+    usersOut.value = v; usersEl.value = v; calc();
+  };
+  usersOut.addEventListener('blur', finalizeU);
+  usersOut.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); usersOut.blur(); } });
   document.querySelectorAll('.cadence-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.cadence-btn').forEach(b => b.classList.remove('active'));
@@ -930,6 +959,7 @@ if (usersEl) {
       calc();
     });
   });
+  usersOut.value = usersEl.value;
   calc();
 }
 
